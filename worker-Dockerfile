@@ -32,10 +32,10 @@ RUN wget http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz && \
 
 
 COPY worker_build_scripts /worker_build_scripts
-COPY worker_files /tmp
-COPY worker-startup.sh /tmp
+COPY worker_files /tmp-submit
+COPY worker-startup.sh /tmp-submit
 
-RUN chmod -R 755 /tmp && chmod -R 755 /worker_build_scripts
+RUN chmod -R 755 /tmp-submit && chmod -R 755 /worker_build_scripts
 
 
 

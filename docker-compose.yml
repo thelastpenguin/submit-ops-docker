@@ -25,11 +25,11 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    command: "/tmp/submit-cs-startup.sh"
+    command: "/tmp-submit/submit-cs-startup.sh"
     #command: "tail -f /dev/null"
     #volumes:
     #  - ./build_scripts:/build_scripts
-    #  - ./files:/tmp
+    #  - ./files:/tmp-submit
     ports:
       - "3000:3000"
       - "8080:80"
@@ -44,11 +44,11 @@ services:
     build:
       context: .
       dockerfile: ./worker-Dockerfile
-    command: "/tmp/worker-startup.sh"
+    command: "/tmp-submit/worker-startup.sh"
     #command: "tail -f /dev/null"
     #volumes:
     #  - ./build_scripts:/build_scripts
-    #  - ./files:/tmp
+    #  - ./files:/tmp-submit
     #ports:
     #  - "3000:3000"
     depends_on:

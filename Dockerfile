@@ -33,10 +33,10 @@ RUN wget http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz && \
 
 
 COPY build_scripts /build_scripts
-COPY files /tmp
-COPY submit-cs-startup.sh /tmp
+COPY files /tmp-submit
+COPY submit-cs-startup.sh /tmp-submit
 
-RUN chmod -R 755 /tmp && chmod -R 755 /build_scripts
+RUN chmod -R 755 /tmp-submit && chmod -R 755 /build_scripts
 
 # NGINX configuration
 

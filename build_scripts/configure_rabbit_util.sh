@@ -7,5 +7,5 @@ mkdir -p ${BIN_DIR}
 
 # Make rabbit_util executable and relocate to directory on path
 
-cp /tmp/rabbit_util ${BIN_DIR} 
+cp /tmp-submit/rabbit_util ${BIN_DIR} 
 chmod +x ${BIN_DIR}/rabbit_util

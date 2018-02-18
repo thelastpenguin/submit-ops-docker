@@ -101,7 +101,7 @@ We can also do this to mount local files inside the container
 ```
  volumes:
       - ./build_scripts:/build_scripts
-      - ./files:/tmp
+      - ./files:/tmp-submit
 ```
 
 This is an abstraction of having disk space somewhere in your file system.
