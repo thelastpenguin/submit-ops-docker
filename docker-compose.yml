@@ -37,7 +37,7 @@ services:
       - db
       - mq
     volumes:
-     - ../submit:/submit_src
+      - ../submit:/submit_src
   submit_worker:
     container_name: submit_worker
     image: thelastpenguin/submit_worker
