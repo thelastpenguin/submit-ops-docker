@@ -32,6 +32,10 @@ RUN wget http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz && \
   pip install docopt 
 
 # TODO: relocate all of these directories to a safe single location used by all docker things
+
+RUN mkdir -p -m 755 /docker
+
+COPY keys /docker/keys
 COPY build_scripts /build_scripts
 COPY runtime_scripts /runtime_scripts 
 COPY files /tmp-submit

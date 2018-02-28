@@ -1,3 +1,6 @@
 *~
 ssh_rsa
 ssh_rsa.pub
+
+keys/submit_id_rsa
+keys/submit_id_rsa.pub
