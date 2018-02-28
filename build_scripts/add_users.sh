@@ -1,7 +1,6 @@
 #!/bin/bash -eux
 
 # The submit user has permission to the database
-
 adduser submit
 
 # Generate worker users

@@ -21,12 +21,12 @@ sed -i s/{{cookie_secret}}/$cookie_secret/ /home/submit/files/submit.ini
 chmod +x /home/submit/files/update_submit
 mv /home/submit/files/update_submit /home/submit/bin/
 
-# Run update_submit to fetch the application and start it for the first time
-/home/submit/bin/update_submit
+# # Run update_submit to fetch the application and start it for the first time
+# /home/submit/bin/update_submit
 
-# Prepare the application's database
-su submit -c 'source /home/submit/venv/bin/activate; echo "from submit import models; models.create_schema()" | pshell /home/submit/files/submit.ini'
-su submit -c 'source /home/submit/venv/bin/activate; cat /tmp-submit/create_admin_user.py | pshell /home/submit/files/submit.ini'
+# # Prepare the application's database
+# su submit -c 'source /home/submit/venv/bin/activate; echo "from submit import models; models.create_schema()" | pshell /home/submit/files/submit.ini'
+# su submit -c 'source /home/submit/venv/bin/activate; cat /tmp-submit/create_admin_user.py | pshell /home/submit/files/submit.ini'
 
 # Make submit_shell executable and relocate to directory on path
 chmod +x /home/submit/files/submit_shell

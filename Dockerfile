@@ -31,10 +31,12 @@ RUN wget http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz && \
   pip install pika && \
   pip install docopt 
 
-
+# TODO: relocate all of these directories to a safe single location used by all docker things
 COPY build_scripts /build_scripts
+COPY runtime_scripts /runtime_scripts 
 COPY files /tmp-submit
 COPY submit-cs-startup.sh /tmp-submit
+COPY submit-cs-build.sh /tmp-submit
 
 RUN chmod -R 755 /tmp-submit && chmod -R 755 /build_scripts
 
@@ -43,3 +45,4 @@ RUN chmod -R 755 /tmp-submit && chmod -R 755 /build_scripts
 COPY files/nginx.conf /etc/nginx/nginx.conf
 RUN chown root:root /etc/nginx/nginx.conf
 
+RUN /tmp-submit/submit-cs-build.sh
