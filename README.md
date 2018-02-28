@@ -5,19 +5,18 @@ This directory contains information for getting an instance of submit.cs working
 
 ## Development Setup (Skip this part if you just need to run a local copy)
 
-### Installing Submodules
-```
-git submodule init
-git submodule update -r 
-```
-you will now have a copy of the source code for submit.cs cloned at docker/submit 
+In the directory where you are working, clone each of these repos
+as siblings:
 
-when you run docker-compose up the submit_cs container will mount this directory at /submit\_cs 
-you can view this by running
 ```
-docker exec -it submit_cs bash
-cd /submit_cs
+git clone git@github.com:ucsb-cs/submit.git
+git clone git@github.com:ucsb-cs/submit-ops-docker.git
 ```
+
+TODO: implement an environment variable to override the
+production installation of submit via pip with the code pointed
+to by the env variable.
+
 
 ### Launching Docker
 ```
@@ -29,18 +28,24 @@ docker exec -it submit_cs # takes you into the container
 ```
 
 ### Switching submit_cs to use your local changes
+
 ```
 docker exec -it bash # this will shell you into the container running submit_cs 
-/home/submit/bin/update_submit /submit_cs 
+/home/submit/bin/update_submit /submit_src 
 ```
-this restarts the submit\_cs web server, and reinstalls it from the source code located at /submit_cs (which is a volume we mount into docker corresponding to docker/submit on your host machine)
+
+This restarts the submit\_cs web server, and reinstalls it from the source code located at /submit_src (which is a volume we mount into docker corresponding to docker/submit on your host machine)
 
 ### Viewing any logs / errors
+
 Once you have shelled into the submit_cs container logs can be found in 
+
 ```
 cd /home/submit/logs
 ```
-errors from the main process can be found in 
+
+Errors from the main process can be found in 
+
 ```
 tail /home/submit/logs/uwsgi.log
 ```
