@@ -59,15 +59,15 @@ su submit -c 'killall -q worker_proxy worker_verification || true'
 
 # Start workers
 su -p submit -c 'source $HOME/venv/bin/activate; worker_verification $HOME/files/submit.ini'
-
-for worker in worker1 worker2; do
-    cp $PACKAGE_PATH/workers/worker.py /home/$worker/
-    su -p submit -c "source $HOME/venv/bin/activate; worker_proxy -c restart $HOME/files/submit.ini $worker" 
-done
+su -p submit -c 'rm -f $HOME/.ssh/known_hosts'
 
 # Reset submit user's known hosts and then test ssh from submit account
-su -p submit -c 'rm -f $HOME/.ssh/known_hosts'
-su submit -c "ssh -4 -oStrictHostKeyChecking=no -i $HOME/ssh_rsa worker1@localhost exit"
+su submit -c "ssh -4 -oStrictHostKeyChecking=no -i $HOME/submit_key worker1@submit_worker exit"
+
+for worker in worker1 worker2; do
+    scp -o StrictHostKeyChecking=no -i $HOME/submit_key $PACKAGE_PATH/workers/worker.py $worker@submit_worker:/home/$worker/
+    su -p submit -c "source $HOME/venv/bin/activate; worker_proxy -c restart $HOME/files/submit.ini $worker" 
+done
 
 # Start or update application servers
 $(which uwsgi) --ini-paste $INI_FILE

@@ -45,4 +45,9 @@ RUN chmod -R 755 /tmp-submit && chmod -R 755 /build_scripts
 COPY files/nginx.conf /etc/nginx/nginx.conf
 RUN chown root:root /etc/nginx/nginx.conf
 
+# Worker Key Configuration
+RUN mkdir -p /keys
+COPY keys/submit_key /keys
+
+# Fetch all of the pip modules and such and such
 RUN /tmp-submit/submit-cs-build.sh

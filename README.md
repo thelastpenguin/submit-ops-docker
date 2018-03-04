@@ -1,9 +1,26 @@
 This directory contains information for getting an instance of submit.cs working in a Docker container.
 
-
 # Recent Updates 
 
-## Development Setup (Skip this part if you just need to run a local copy)
+## Building the Docker Images (or just pull them)
+To pull the docker images
+```
+docker-compose pull
+```
+should pull the images from our conveniently published images on dockerhub. If this does not work for you for some reason you can build them manually as follows
+
+ 1. Generate the key files that will be used by submit\_cs to connect to submit\_worker (for more details see ./keys/README.md)
+```
+cd ./keys
+sh generate-keys.sh
+```
+ 2. Build the container
+```
+docker-compose build
+```
+ 3. Profit!
+
+## Recommended Development Setup (Skip this part if you just need to run a local copy)
 
 In the directory where you are working, clone each of these repos
 as siblings:
@@ -27,6 +44,13 @@ docker-compose up # start up the submit_cs instance
 docker exec -it submit_cs # takes you into the container
 ```
 
+The submit_cs process itself will be listening on port 8080 in your browser
+```
+http://localhost:8080
+```
+Is how you would typically access this.
+
+
 ### Switching submit_cs to use your local changes
 
 ```
@@ -38,17 +62,14 @@ This restarts the submit\_cs web server, and reinstalls it from the source code 
 
 ### Viewing any logs / errors
 
-Once you have shelled into the submit_cs container logs can be found in 
+Within the container the logs can be found in 
+```
+/home/submit/logs
+```
+but they are also conveniently mounted at ./submit_logs in this directory so you can more easily access them (hopefully without going through the pain of directly shelling into the container)
 
-```
-cd /home/submit/logs
-```
 
-Errors from the main process can be found in 
-
-```
-tail /home/submit/logs/uwsgi.log
-```
+# Old Documentation
 
 ## Just getting things up and running (useful commands)
 

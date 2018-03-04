@@ -39,6 +39,11 @@ services:
     volumes:
       - ../submit:/submit_src
       - ./submit_logs:/home/submit/logs
+    healthcheck:
+      # checks that submit.cs successfully launched and is listening
+      test: bash -c 'sh /runtime_files/health_check.sh'
+      timeout: 1s
+      retries: 10
   submit_worker:
     container_name: submit_worker
     image: thelastpenguin/submit_worker
