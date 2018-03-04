@@ -2,40 +2,67 @@ This directory contains information for getting an instance of submit.cs working
 
 # Recent Updates 
 
-## Building the Docker Images (or just pull them)
-To pull the docker images
-```
-docker-compose pull
-```
-should pull the images from our conveniently published images on dockerhub. If this does not work for you for some reason you can build them manually as follows
+## Recommended Development Workflow
 
- 1. Generate the key files that will be used by submit\_cs to connect to submit\_worker (for more details see ./keys/README.md)
-```
-cd ./keys
-sh generate-keys.sh
-```
- 2. Build the container
-```
-docker-compose build
-```
- 3. Profit!
+### Environment Setup
 
-## Recommended Development Setup (Skip this part if you just need to run a local copy)
-
-In the directory where you are working, clone each of these repos
-as siblings:
-
+ 1. Fork and clone the source code to submit-cs as well as the source code for this repo into a directory
 ```
 git clone git@github.com:ucsb-cs/submit.git
 git clone git@github.com:ucsb-cs/submit-ops-docker.git
 ```
+ 2. cd into submit-ops-docker and generate the ssh keys
+```
+sh keys/generate-keys.sh
+```
+ 3. build the docker container 
+```
+docker-compose build 
+```
 
-TODO: implement an environment variable to override the
-production installation of submit via pip with the code pointed
-to by the env variable.
+### Launching the Production Environment
 
+This is as simple as 
+```
+docker-compose up
+```
+It will use the production version of submit.cs which is published on pip, **NOT THE VERSION YOU CLONED ON YOUR HARD DRIVE**
 
-### Launching Docker
+_the application will be running on localhost at http://localhost:8080_
+
+### Launching the Development Environment
+
+This is as as simple as
+```
+SRC=../submit:/submit_src docker-copose up
+```
+The src environment variable specifies a volume that gets mounted into the submit_cs docker container
+
+_the application will be running on localhost at http://localhost:8080_
+
+### Viewing the logs
+The logs are mounted on the host file system in a directory named 'submit_logs' for your convenience. This is in the submit-ops-docker folder.
+
+### Shelling into the containers for more advanced debugging
+
+#### Restarting submit_cs without recreating the container
+
+```
+docker exec -it bash # this will shell you into the container running submit_cs 
+/home/submit/bin/update_submit /submit_src 
+```
+
+This restarts the submit\_cs web server, and reinstalls it from the source code located at /submit_src (which is a volume we mount into docker corresponding to docker/submit on your host machine)
+
+#### Viewing any logs / errors directly in the container
+
+Within the container the logs can be found in 
+```
+/home/submit/logs
+```
+but they are also conveniently mounted at ./submit_logs in this directory so you can more easily access them (hopefully without going through the pain of directly shelling into the container)
+
+### Useful commands for working with docker
 ```
 docker volume prune # prune out old database, don't run this if you want to keep the data 
 docker-compose build # build the lastest changes to the docker configuration 
@@ -49,24 +76,6 @@ The submit_cs process itself will be listening on port 8080 in your browser
 http://localhost:8080
 ```
 Is how you would typically access this.
-
-
-### Switching submit_cs to use your local changes
-
-```
-docker exec -it bash # this will shell you into the container running submit_cs 
-/home/submit/bin/update_submit /submit_src 
-```
-
-This restarts the submit\_cs web server, and reinstalls it from the source code located at /submit_src (which is a volume we mount into docker corresponding to docker/submit on your host machine)
-
-### Viewing any logs / errors
-
-Within the container the logs can be found in 
-```
-/home/submit/logs
-```
-but they are also conveniently mounted at ./submit_logs in this directory so you can more easily access them (hopefully without going through the pain of directly shelling into the container)
 
 
 # Old Documentation

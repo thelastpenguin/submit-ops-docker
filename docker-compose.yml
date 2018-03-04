@@ -37,13 +37,12 @@ services:
       - db
       - mq
     volumes:
-      - ../submit:/submit_src
       - ./submit_logs:/home/submit/logs
+      - ${SRC}
     healthcheck:
-      # checks that submit.cs successfully launched and is listening
       test: bash -c 'sh /runtime_files/health_check.sh'
       timeout: 1s
-      retries: 10
+      retries: 3
   submit_worker:
     container_name: submit_worker
     image: thelastpenguin/submit_worker
@@ -61,5 +60,7 @@ services:
       - db
       - mq
       - submit_cs
+    healthcheck:
+      test: bash -c '[ ! -S /home/worker1/worker.py ]'
 volumes:
   db-data:

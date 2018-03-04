@@ -31,6 +31,9 @@ RUN wget http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz && \
   pip install pika && \
   pip install docopt 
 
+# Create the submit cs user
+RUN adduser submit
+
 # TODO: relocate all of these directories to a safe single location used by all docker things
 COPY build_scripts /build_scripts
 COPY runtime_scripts /runtime_scripts 
