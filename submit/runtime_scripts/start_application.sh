@@ -18,8 +18,9 @@ fi
 # # Prepare the application's database
 if [ ! -f /home/submit/submit-files/dbready.txt ]; then
   echo "Getting the application's database ready"
-  su submit -c 'source /home/submit/venv/bin/activate; echo "from submit import models; models.create_schema()" | pshell /home/submit/files/submit.ini'
-  su submit -c 'source /home/submit/venv/bin/activate; cat /docker/files/create_admin_user.py | pshell /home/submit/files/submit.ini'
+  su submit -c 'source /home/submit/venv/bin/activate; echo "from submit import models; models.create_schema()" | pshell /docker/files/submit.ini'
+  su submit -c 'source /home/submit/venv/bin/activate; cat /docker/files/create_admin_user.py | pshell /docker/files/submit.ini'
+  # this file marks that the database & filesystem have been initialized, removing it will cause reinitialization
   touch /home/submit/submit-files/dbready.txt 
 else
   echo "Found /home/submit/submit-files/dbready.txt indicating the database is already set up, skipping database ready as it may be redundant and dangerous. If you have made changes to the database please clear out the file system and the database"
