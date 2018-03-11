@@ -7,16 +7,31 @@ This directory contains information for getting an instance of submit.cs working
 ### Environment Setup
 
  1. Fork and clone the source code to submit-cs as well as the source code for this repo into a directory
-```
+```sh
 git clone git@github.com:ucsb-cs/submit.git
 git clone git@github.com:ucsb-cs/submit-ops-docker.git
 ```
  2. cd into submit-ops-docker and generate the ssh keys (note that yes, you must actually be in the keys directory to make sure the files are output to the correct location)
-```
+```sh
 sh generate-keys.sh
 ```
  3. build the docker container 
+```sh
+docker-compose build 
 ```
+ 4. Chmod the scripts directory to be executable
+```sh
+chmod -R +x ./scripts
+```
+
+__for your convenience all of those commands in one place__
+```sh
+#! /bin/bash
+git clone git@github.com:ucsb-cs/submit.git
+git clone git@github.com:ucsb-cs/submit-ops-docker.git
+cd submit-ops-docker
+sh generate-keys.sh
+chmod -R +x ./scripts
 docker-compose build 
 ```
 
@@ -34,6 +49,11 @@ _the application will be running on localhost at http://localhost:8080_
 
 This is as as simple as
 ```
+./scripts/up
+```
+
+This script simply wraps
+```
 SRC=../submit:/submit_src docker-compose up
 ```
 The src environment variable specifies a volume that gets mounted into the submit_cs docker container
@@ -41,7 +61,12 @@ The src environment variable specifies a volume that gets mounted into the submi
 _the application will be running on localhost at http://localhost:8080_
 
 ### Viewing the logs
-The logs are mounted on the host file system in a directory named 'submit_logs' for your convenience. This is in the submit-ops-docker folder.
+The logs can be found in data/submit/logs on the host filesystem in the submit-ops-docker repo. They are mounted here as a volume by the docker-compose file.
+
+## Using the scripts to manage your containers
+ - ``sh ./scripts/down`` shuts down the docker containers
+ - ``sh ./scripts/up`` starts up the docker containers
+ - ``sh ./scripts/clear`` __clears out the database state__
 
 ### Shelling into the containers for more advanced debugging
 
