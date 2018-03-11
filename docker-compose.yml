@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: submit
       POSTGRES_PASSWORD: ""
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
     ports:
       - "6000:5432"
   mq:
@@ -36,7 +36,8 @@ services:
       - db
       - mq
     volumes:
-      - ./submit_logs:/home/submit/logs
+      - ./data/submit/logs:/home/submit/logs
+      - submit-files:/home/submit/submit-files
       - ${SRC}
     healthcheck:
       test: bash -c 'sh /runtime_files/health_check.sh'
@@ -61,6 +62,7 @@ services:
       - submit_cs
     healthcheck:
       test: bash -c '[ ! -S /home/worker1/worker.py ]'
+
 volumes:
-  db-data:
-  files:
+  submit-files:
+  db:

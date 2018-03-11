@@ -1,6 +1,6 @@
 *~
 ssh_rsa
 ssh_rsa.pub
-submit_logs/
-submit_key
-submit_key.pub 
+data/*
+submit/files/submit_key
+worker/worker_files/submit_key.pub 
