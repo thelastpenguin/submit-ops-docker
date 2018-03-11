@@ -16,7 +16,6 @@ else
 fi
 
 # # Prepare the application's database
-ls /home/submit/submit-files/
 if [ ! -f /home/submit/submit-files/dbready.txt ]; then
   echo "Getting the application's database ready"
   su submit -c 'source /home/submit/venv/bin/activate; echo "from submit import models; models.create_schema()" | pshell /home/submit/files/submit.ini'
