@@ -1,3 +1,0 @@
-# /bin/bash
-
-docker exec -it submit_cs /home/submit/files/update_submit

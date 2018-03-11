@@ -55,13 +55,16 @@ if [ -f $PID_FILE ]; then
 fi
 
 # Stop workers
+echo "Stop workers"
 su submit -c 'killall -q worker_proxy worker_verification || true'
 
 # Start workers
+echo "Start the workers"
 su -p submit -c 'source $HOME/venv/bin/activate; worker_verification $HOME/files/submit.ini'
 su -p submit -c 'rm -f $HOME/.ssh/known_hosts'
 
 # Reset submit user's known hosts and then test ssh from submit account
+echo "Reset submit users known hosts and then test ssh from submit account"
 su submit -c "ssh -4 -oStrictHostKeyChecking=no -i $HOME/submit_key worker1@submit_worker exit"
 
 for worker in worker1 worker2; do
@@ -70,8 +73,10 @@ for worker in worker1 worker2; do
 done
 
 # Start or update application servers
+echo "Starting the application servers"
 $(which uwsgi) --ini-paste $INI_FILE
 
 # Take out of maintenance mode
+echo "Switching out of maintenance mode"
 rm $STATIC_DIR/maintenance.html
 

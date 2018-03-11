@@ -1,3 +1,11 @@
+# Remove the verification.pid file TODO: determine what this file does
+echo "Clearing /home/submit/verification.pid"
+rm -rf /home/submit/verification.pid
+
+# Chown the submit-files directory
+echo "Chowning /home/submit/submit-files as this may not be owned by the correct user when mounted as a volume"
+chown -R submit:submit /home/submit/submit-files
+
 # Run update_submit to fetch the application and start it for the first time
 if [ -d "/submit_src" ]; then
   echo "Detected that /submit_src is present. Mounting source from host file system."
@@ -8,6 +16,7 @@ else
 fi
 
 # # Prepare the application's database
+ls /home/submit/submit-files/
 if [ ! -f /home/submit/submit-files/dbready.txt ]; then
   echo "Getting the application's database ready"
   su submit -c 'source /home/submit/venv/bin/activate; echo "from submit import models; models.create_schema()" | pshell /home/submit/files/submit.ini'
