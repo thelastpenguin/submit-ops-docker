@@ -1,0 +1,5 @@
+# /bin/bash 
+
+SRC=../submit:/submit_src docker-compose down
+SRC=../submit:/submit_src docker-compose rm 
+SRC=../submit:/submit_src docker volume prune 

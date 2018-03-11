@@ -12,8 +12,7 @@ RUN yum update -y && \
   openssh-server \
   wget \
   xz-libs \
-  emacs \
-  su \
+  emacs 
 
 # Install python 2.7.6 to /usr/local/bin and symlink to /usr/local/bin/python
 RUN wget http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz && \

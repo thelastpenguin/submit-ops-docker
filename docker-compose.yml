@@ -7,8 +7,8 @@ services:
     environment:
       POSTGRES_USER: submit
       POSTGRES_PASSWORD: ""
-    # volumes:
-      # - db-data:/var/lib/postgresql/data
+    volumes:
+      - db-data:/var/lib/postgresql/data
     ports:
       - "6000:5432"
   mq:
@@ -27,9 +27,8 @@ services:
       dockerfile: Dockerfile
     command: "/tmp-submit/submit-cs-startup.sh"
     #command: "tail -f /dev/null"
-    #volumes:
-    #  - ./build_scripts:/build_scripts
-    #  - ./files:/tmp-submit
+    volumes:
+     - files:/tmp-submit
     ports:
       - "3000:3000"
       - "8080:80"
@@ -64,3 +63,4 @@ services:
       test: bash -c '[ ! -S /home/worker1/worker.py ]'
 volumes:
   db-data:
+  files:
