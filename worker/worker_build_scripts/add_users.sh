@@ -21,7 +21,7 @@ for worker in worker1 worker2; do
     # Create .ssh/authorized_keys file
     su -l $worker -c 'mkdir ${HOME}/.ssh'
     su -l $worker -c 'chmod 700 ${HOME}/.ssh'
-    cat /keys/submit_key.pub | su $worker -c 'tee -a ${HOME}/.ssh/authorized_keys'
+    cat /tmp-submit/submit_key.pub | su $worker -c 'tee -a ${HOME}/.ssh/authorized_keys'
     su -l $worker -c 'chmod 600 ${HOME}/.ssh/authorized_keys'
 done
 

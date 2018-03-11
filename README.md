@@ -11,9 +11,10 @@ This directory contains information for getting an instance of submit.cs working
 git clone git@github.com:ucsb-cs/submit.git
 git clone git@github.com:ucsb-cs/submit-ops-docker.git
 ```
- 2. cd into submit-ops-docker and generate the ssh keys
+ 2. cd into submit-ops-docker and generate the ssh keys (note that yes, you must actually be in the keys directory to make sure the files are output to the correct location)
 ```
-sh keys/generate-keys.sh
+cd keys/
+sh generate-keys.sh
 ```
  3. build the docker container 
 ```
@@ -34,7 +35,7 @@ _the application will be running on localhost at http://localhost:8080_
 
 This is as as simple as
 ```
-SRC=../submit:/submit_src docker-copose up
+SRC=../submit:/submit_src docker-compose up
 ```
 The src environment variable specifies a volume that gets mounted into the submit_cs docker container
 

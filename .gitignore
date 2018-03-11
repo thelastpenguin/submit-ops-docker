@@ -2,5 +2,5 @@
 ssh_rsa
 ssh_rsa.pub
 submit_logs/
-keys/submit_key
-keys/submit_key.pub 
+submit_key
+submit_key.pub 

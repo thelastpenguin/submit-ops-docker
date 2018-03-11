@@ -23,8 +23,8 @@ services:
     container_name: submit_cs
     image: thelastpenguin/submit_cs
     build:
-      context: .
-      dockerfile: ./Dockerfile
+      context: ./submit
+      dockerfile: Dockerfile
     command: "/tmp-submit/submit-cs-startup.sh"
     #command: "tail -f /dev/null"
     #volumes:
@@ -47,8 +47,8 @@ services:
     container_name: submit_worker
     image: thelastpenguin/submit_worker
     build:
-      context: .
-      dockerfile: ./worker-Dockerfile
+      context: ./worker
+      dockerfile: Dockerfile
     command: "/tmp-submit/worker-startup.sh"
     #command: "tail -f /dev/null"
     #volumes:

@@ -34,9 +34,4 @@ COPY worker_build_scripts /worker_build_scripts
 COPY worker_files /tmp-submit
 COPY worker-startup.sh /tmp-submit
 
-# Worker Key Configuration
-RUN mkdir -p /keys
-COPY keys/submit_key.pub /keys 
-RUN chmod -R 700 /keys
-
 RUN chmod -R 755 /tmp-submit && chmod -R 755 /worker_build_scripts
