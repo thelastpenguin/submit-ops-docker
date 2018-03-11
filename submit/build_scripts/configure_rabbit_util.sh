@@ -7,5 +7,5 @@ mkdir -p ${BIN_DIR}
 
 # Make rabbit_util executable and relocate to directory on path
 
-cp /tmp-submit/rabbit_util ${BIN_DIR} 
+cp /docker/files/rabbit_util ${BIN_DIR} 
 chmod +x ${BIN_DIR}/rabbit_util

@@ -5,7 +5,7 @@ chmod 755 /home/submit
 
 # Files directory must be owned by submit user
 mkdir -p /home/submit/files
-cp /tmp-submit/* /home/submit/files
+cp /docker/files/* /home/submit/files
 chown submit:submit /home/submit/files
 
 # Create bin directory
@@ -26,7 +26,7 @@ mv /home/submit/files/update_submit /home/submit/bin/
 
 # # Prepare the application's database
 # su submit -c 'source /home/submit/venv/bin/activate; echo "from submit import models; models.create_schema()" | pshell /home/submit/files/submit.ini'
-# su submit -c 'source /home/submit/venv/bin/activate; cat /tmp-submit/create_admin_user.py | pshell /home/submit/files/submit.ini'
+# su submit -c 'source /home/submit/venv/bin/activate; cat /docker/files/create_admin_user.py | pshell /home/submit/files/submit.ini'
 
 # Make submit_shell executable and relocate to directory on path
 chmod +x /home/submit/files/submit_shell

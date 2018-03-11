@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-BUILD_SCRIPT_PATH=/build_scripts
+BUILD_SCRIPT_PATH=/docker/build_scripts
 
 echo "In $0, about to loop through ${BUILD_SCRIPT_PATH}"
 

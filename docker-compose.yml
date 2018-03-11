@@ -25,10 +25,10 @@ services:
     build:
       context: ./submit
       dockerfile: Dockerfile
-    command: "/tmp-submit/submit-cs-startup.sh"
+    command: "/docker/files/submit-cs-startup.sh"
     #command: "tail -f /dev/null"
     volumes:
-     - files:/tmp-submit
+     - files:/docker/files
     ports:
       - "3000:3000"
       - "8080:80"
@@ -40,7 +40,7 @@ services:
       - submit-files:/home/submit/submit-files
       - ${SRC}
     healthcheck:
-      test: bash -c 'sh /runtime_files/health_check.sh'
+      test: bash -c 'sh /runtime_scripts/health_check.sh'
       timeout: 1s
       retries: 3
   submit_worker:
@@ -49,11 +49,11 @@ services:
     build:
       context: ./worker
       dockerfile: Dockerfile
-    command: "/tmp-submit/worker-startup.sh"
+    command: "/docker/files/worker-startup.sh"
     #command: "tail -f /dev/null"
     #volumes:
     #  - ./build_scripts:/build_scripts
-    #  - ./files:/tmp-submit
+    #  - ./files:/docker/files
     #ports:
     #  - "3000:3000"
     depends_on:

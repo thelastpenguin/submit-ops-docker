@@ -161,7 +161,7 @@ We can also do this to mount local files inside the container
 ```
  volumes:
       - ./build_scripts:/build_scripts
-      - ./files:/tmp-submit
+      - ./files:/docker/files
 ```
 
 This is an abstraction of having disk space somewhere in your file system.

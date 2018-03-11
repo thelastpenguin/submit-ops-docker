@@ -31,7 +31,7 @@ RUN wget http://www.python.org/ftp/python/2.7.6/Python-2.7.6.tar.xz && \
   pip install docopt 
 
 COPY worker_build_scripts /worker_build_scripts
-COPY worker_files /tmp-submit
-COPY worker-startup.sh /tmp-submit
+COPY worker_files /docker/files
+COPY worker-startup.sh /docker/files
 
-RUN chmod -R 755 /tmp-submit && chmod -R 755 /worker_build_scripts
+RUN chmod -R 755 /docker/files && chmod -R 755 /worker_build_scripts
