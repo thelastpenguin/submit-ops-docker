@@ -13,7 +13,6 @@ git clone git@github.com:ucsb-cs/submit-ops-docker.git
 ```
  2. cd into submit-ops-docker and generate the ssh keys (note that yes, you must actually be in the keys directory to make sure the files are output to the correct location)
 ```
-cd keys/
 sh generate-keys.sh
 ```
  3. build the docker container 
